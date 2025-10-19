@@ -54,9 +54,11 @@ public final class StringParser {
                 throw InputValidationException.emptyInput();
             }
             
-            // 커스텀 구분자로 분리
-            String delimRegex = Pattern.quote(header);
-            String[] tokens = body.split(delimRegex, -1); // -1: 빈 토큰 검출
+            // 커스텀 구분자와 기본 구분자를 모두 사용하여 분리
+            String customDelimiter = Pattern.quote(header);
+            String allDelimiters = customDelimiter + "|,|:";
+            String[] tokens = body.split(allDelimiters, -1); // -1: 빈 토큰 검출
+            
             return toPositiveIntegers(tokens);
         }
 
